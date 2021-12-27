@@ -17,36 +17,30 @@ import com.virtualpairprogrammers.services.TutorManagement;
 
 @Controller
 @Transactional
-public class ManageTutorsController
-{
-	@Autowired
-	private TutorManagement tutorManagement;
-	
-	@RequestMapping("/displayAllTutors")
-	public ModelAndView displayAllTutors()
-	{    	
-		List<Tutor> allTutors = tutorManagement.getAllTutors();
-		long salaryBill = tutorManagement.getSalaryBill();
-		
-		Map<String, Object> results = new HashMap<String, Object>();
-		results.put("allTutors", allTutors);
-		results.put("salary", salaryBill);
+public class ManageTutorsController {
+    @Autowired
+    private TutorManagement tutorManagement;
 
-		return new ModelAndView("/displayAllTutors.jsp", "results", results);	
-	}
-	
-	@RequestMapping("/displayTutorDetail")
-	public ModelAndView displayTutorDetail(@RequestParam("id") int id)
-	{		
-		try 
-		{
-			Tutor tutor = tutorManagement.findTutorByIdWithSupervisionGroup(id);
-			return new ModelAndView("/displayTutorDetail.jsp", "tutor", tutor);			
-		} 
-		catch (NoResultsFoundException e) 
-		{
-			return new ModelAndView("/noResultsFound.jsp");
-		}		
-	}
-	
+    @RequestMapping("/displayAllTutors")
+    public ModelAndView displayAllTutors() {
+        List<Tutor> allTutors = tutorManagement.getAllTutors();
+        long salaryBill = tutorManagement.getSalaryBill();
+
+        Map<String, Object> results = new HashMap<String, Object>();
+        results.put("allTutors", allTutors);
+        results.put("salary", salaryBill);
+
+        return new ModelAndView("/displayAllTutors.jsp", "results", results);
+    }
+
+    @RequestMapping("/displayTutorDetail")
+    public ModelAndView displayTutorDetail(@RequestParam("id") int id) {
+        try {
+            Tutor tutor = tutorManagement.findTutorByIdWithSupervisionGroup(id);
+            return new ModelAndView("/displayTutorDetail.jsp", "tutor", tutor);
+        } catch (NoResultsFoundException e) {
+            return new ModelAndView("/noResultsFound.jsp");
+        }
+    }
+
 }

@@ -14,24 +14,21 @@ import com.virtualpairprogrammers.services.TutorManagement;
 
 @Controller
 @RequestMapping("/addNewTutor")
-public class AddNewTutorController 
-{
-	@Autowired
-	private TutorManagement tutorManagement;
+public class AddNewTutorController {
+    @Autowired
+    private TutorManagement tutorManagement;
 
-	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView show() {
-		return new ModelAndView("/add-new-tutor.jsp", "tutor", new Tutor());
-	}
+    @RequestMapping(method = RequestMethod.GET)
+    public ModelAndView show() {
+        return new ModelAndView("/add-new-tutor.jsp", "tutor", new Tutor());
+    }
 
-	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView processForm(@Valid Tutor newTutor, Errors result) 
-	{		
-		if (result.hasErrors())
-		{
-			return new ModelAndView("/add-new-tutor.jsp", "tutor", newTutor);
-		}
-		tutorManagement.createNewTutor(newTutor);
-		return new ModelAndView("/tutorAdded.jsp", "staffId", newTutor.getStaffId());
-	}
+    @RequestMapping(method = RequestMethod.POST)
+    public ModelAndView processForm(@Valid Tutor newTutor, Errors result) {
+        if (result.hasErrors()) {
+            return new ModelAndView("/add-new-tutor.jsp", "tutor", newTutor);
+        }
+        tutorManagement.createNewTutor(newTutor);
+        return new ModelAndView("/tutorAdded.jsp", "staffId", newTutor.getStaffId());
+    }
 }
